@@ -16,7 +16,7 @@ public class Implementation extends UnicastRemoteObject implements IFlight{
 		}
 		//--------------Data--------------
 		public Flight[] Data(){
-			File f = new File("F:\\lap5\\src\\server\\lib.txt");
+			File f = new File("F:\\lap5\\src\\server\\data.txt");
 			Scanner c = null;
 			try {
 				c = new Scanner(f,"UTF-8");
@@ -114,7 +114,7 @@ public class Implementation extends UnicastRemoteObject implements IFlight{
 					}
 				}
 				try {
-					FileWriter writer = new FileWriter("F:\\lap5\\src\\server\\lib.txt");
+					FileWriter writer = new FileWriter("F:\\lap5\\src\\server\\data.txt");
 					for (int i = 0; i < data.length; i++) {
 						writer.write(data[i].getId()+"\t"+data[i].getFlydate()+"\t"+data[i].getFrom()+"\t"+data[i].getTo()+"\t"+data[i].getFlyTime()+"\t"+data[i].getTotal()+"\t"+data[i].getOdered()+"\n");
 					}
