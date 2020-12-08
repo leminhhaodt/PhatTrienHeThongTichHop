@@ -1,0 +1,109 @@
+--------Cach chay---------
+cmd tro vao thu muc
+nhap lenh :
+java *.java
+start rmiregistry
+java CalculatorServer
+--------
+mo them cmd
+nhap lenh :
+java CalculatorClient
+
+ten file
+        Naming.bind("rmi://localhost/MyCalculator", c);
+IP : localhost (IP computer)
+Name : MyCalculator
+
+--------------Interface---------
+import java.rmi.*;
+
+public interface Calculator extends Remote{
+    public String addNum(int type,int x, int y) throws RemoteException;
+    public String Display() throws RemoteException;
+}
+--------------Impl-------------
+import java.rmi.*;
+
+public class CalculatorImpl implements Calculator{
+    public String addNum(int type,int x, int y) throws RemoteException{
+        System.out.println("Client request to calculate");
+        switch(type){
+        	case 1 : {
+        		return "result :"+(x+y);
+        	}
+        	case 2 : {
+        		return "result :"+(x-y);
+        	}
+        	case 3 : {
+        		return "result :"+(x*y);
+        	}
+        	case 4 : {
+        		float n = x/y;
+        		return "result :"+n;
+        	}
+        	default:{
+        		return "Data wrong!!!";
+        	}
+        }
+    }
+    public String Display() throws RemoteException{
+    	return "Program Calculator\n1.Cong\n2.Tru\n3.Nhan\n4.Chia\n5.Exit write exit";
+    }
+}
+----------------Server--------------
+import java.rmi.Naming;
+import java.rmi.server.UnicastRemoteObject;
+
+public class CalculatorServer {
+  public static void main(String[] args) {
+    try {
+        //int port = 7777;
+        CalculatorImpl c = new CalculatorImpl();
+        System.out.println("Expoting Calculator...");
+        //UnicastRemoteObject.exportObject(c,port);
+        Naming.bind("rmi://localhost/MyCalculator", c);
+        System.out.println("Register Calculator!!");
+    } catch (Exception e) {
+        System.out.println(e);
+    }  
+    
+
+  }
+}
+-----------------Client----------------
+import java.rmi.Naming;
+import java.util.Scanner;
+
+public class CalculatorClient {
+    public static void main(String[] args) {
+        try {
+            Scanner scan = new Scanner(System.in);
+            System.out.print("Address IP: ");
+			String IP = scan.nextLine();
+			System.out.print("Name access: ");
+			String Text = scan.nextLine();
+			/*
+			*	Find connect
+			*/
+			System.out.println("Finding object...");
+			Calculator c = (Calculator)Naming.lookup("rmi://"+IP+"/"+Text);
+			//Connec Success
+			while(true){
+				System.out.println(c.Display());
+				String type = scan.nextLine();
+				if(type.equals("exit")){
+					break;
+				}
+				System.out.print("a = ");
+				String a = scan.nextLine();
+				System.out.print("b = ");
+				String b = scan.nextLine();
+            	System.out.println(c.addNum(Integer.parseInt(type),Integer.parseInt(a),Integer.parseInt(b)));
+            	scan.nextLine();
+			}       
+		}
+		catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+}
