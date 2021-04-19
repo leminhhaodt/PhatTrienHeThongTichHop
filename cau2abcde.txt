@@ -1,0 +1,66 @@
+#CAU 2A)
+import pandas as pd
+import numpy as np
+a = pd.read_csv(r'E:\study\TKMTVUD\PISA_VN_2015_forTest.csv')
+print(a.head(5))
+print(a.tail(3))
+
+#CAU 2B)
+a = pd.read_csv(r'E:\study\TKMTVUD\PISA_VN_2015_forTest.csv')
+df_a = pd.DataFrame(a, columns=['REGION'])
+b = df_a[df_a.REGION == 'CENTRAL']
+print('So hoc sinh o CENTRAL la:', b.shape[0])
+print('Tong so hoc sinh cot REGION la:', df_a.shape[0])
+print('Phan tram:', (b.shape[0])*100/df_a.shape[0])
+
+#CAU 2C)
+df_a = pd.DataFrame(a, columns=['PV1MATH'])
+x = np.mean(df_a)
+
+df_a = pd.DataFrame(a, columns=['PV1READ'])
+y = np.mean(df_a)
+
+df_a = pd.DataFrame(a, columns=['PV1SCIE'])
+z = np.mean(df_a)
+
+print("MEAN của PV1MATH là:", x) 
+print("MEAN của PV1READ là:", y) 
+print("MEAN của PV1SCIE là:", z) 
+
+df_a = pd.DataFrame(a, columns=['PV1MATH'])
+x = np.std(df_a)
+
+df_a = pd.DataFrame(a, columns=['PV1READ'])
+y = np.std(df_a)
+
+df_a = pd.DataFrame(a, columns=['PV1SCIE'])
+z = np.std(df_a)
+
+print("STD của PV1MATH là:", x) 
+print("STD của PV1READ là:", y) 
+print("STD của PV1SCIE là:", z) 
+
+#CAU 2D)
+import pandas as pd
+a = pd.read_csv(r'E:\study\TKMTVUD\PISA_VN_2015_forTest.csv')
+df_a = pd.DataFrame(a, columns=['REGION', 'AREA'])
+x = df_a.loc[(df_a['REGION'] == 'SOUTH')&(df_a['AREA']=='REMOTE')]
+y = df_a.loc[df_a['AREA']=='REMOTE']
+nrowx = x.shape[0]
+nrowy = y.shape[0]
+print("Vung SOUTH cua khu vuc REMOTE:",nrowx)
+print("Tong cua khu vuc REMOTE:",nrowy)
+print("Phan tram Vung SOUTH cua khu vuc REMOTE:",(nrowx*100)/nrowy)
+
+#CAU 2E)
+import matplotlib.pyplot as plt
+
+labels = 'SOUTH', 'NORTH', 'CENTRAL'
+sizes = [34.5, 34.3, 31.3]
+colors = ['gold', 'red', 'brown']
+explode = (0.1,0,0)
+
+plt.pie(sizes, explode=explode, labels=labels, colors=colors, autopct='%1.1f%%', shadow=True, startangle=140)
+plt.axis('equal')
+#plt.title('URBAN')
+plt.text(-0.2,1.5,'URBAN')
