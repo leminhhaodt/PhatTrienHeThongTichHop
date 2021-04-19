@@ -1,0 +1,50 @@
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+#data = pd.read_csv('T:\DataSet\\babies.txt', sep='\s+')
+#df_cohutthuoc = pd.DataFrame(data, columns=['bwt', 'smoke']).query('smoke==1')
+#arr_cohutthuoc = np.array(df_cohutthuoc["bwt"])
+#print('Số lượng bà mẹ có hút thuốc:',len(arr_cohutthuoc))
+
+array = [5, 9, 9, 4, 10, 0]  
+
+# MEAN     
+print("MEAN của cot Test1 là:", np.mean(array)) 
+
+# MODE
+import statistics
+print("MODE cua Test1 la: ", statistics.mode(array))
+
+# MEDIAN
+print("Median của Test1 là:  ", np.median(array))
+
+# STANDAER DEVIATION # SD
+print("SD cua Test1 la: ", np.std(array))
+
+# MIN MAX
+print("Giá trị lớn nhất: ", np.amax(array))
+print("Giá trị bé nhất: ", np.amin(array))
+
+#QUANTILE 0%
+print("Quantile 0% = : ", np.quantile(array, 0))
+
+#QUANTILE 25%
+print("Quantile 25% = : ", np.quantile(array, 0.25))
+
+#QUANTILE 50%
+print("Quantile 50% = : ", np.quantile(array, 0.5))
+
+#QUANTILE 75%
+print("Quantile 75% = : ", np.quantile(array, 0.75))
+
+#IQR
+print("IQR = Q75 - Q25=", np.quantile(array, 0.75)-np.quantile(array, 0.25))
+
+# Do hàm Kurtosis được xây dụng theo quan điểm ông nào đó nên ra sai, chỉ cần lấy KQ cộng thêm 3 là ok
+#SKEWNESS
+#pip install scipy
+from scipy.stats import kurtosis
+from scipy.stats import skew
+print("Skewness : ",skew(array))
+print("Kurtosis : ",kurtosis(array) + 3)
