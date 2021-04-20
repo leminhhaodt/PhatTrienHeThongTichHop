@@ -116,29 +116,36 @@ app.get('/getid/:id', (req, res) => {
     })
 
     //PUT localhost:3000/update/607bc9e378db20242cccc3e5?ProductName=iphone&Quantity=99&Price=9999
-app.put('/update/:id', (req, res) => {
-        var input = {
-            ProductName: req.query.ProductName, 
-            Quantity: req.query.Quantity, 
-            Price: req.query.Price }
+app.put('/update/:id', function(req,res,next){
+    console.log(req.body)
+        Data.updateOne({ _id: req.params.id }, req.body)
+            .then(() => res.json({message:'update success'}))
+            .catch(next); });
+    
 
-       // console.log(req.body);
-        const id = req.params.id;
-        Data.updateOne({ _id: id }, { $set: input })
-            .exec()
-            .then(() => {
-                res.json({
-                    message: `Cap nhat thanh cong cho ID:${id}`,
-                    data: input
-                })
-            })
-            .catch((err) => {
-                res.json({
-                    success: false,
-                    message: "Loi"
-                })
-            })
-})
+// app.put('/update/:id', (req, res) => {
+//         var input = {
+//             ProductName: req.query.ProductName, 
+//             Quantity: req.query.Quantity, 
+//             Price: req.query.Price }
+
+//        // console.log(req.body);
+//         const id = req.params.id;
+//         Data.updateOne({ _id: id }, { $set: input })
+//             .exec()
+//             .then(() => {
+//                 res.json({
+//                     message: `Cap nhat thanh cong cho ID:${id}`,
+//                     data: input
+//                 })
+//             })
+//             .catch((err) => {
+//                 res.json({
+//                     success: false,
+//                     message: "Loi"
+//                 })
+//             })
+// })
 
 
     //DELETE
